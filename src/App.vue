@@ -1,5 +1,5 @@
 <template>
-	<div style="position:relative;">
+	<div style="position:relative;" class="sign">
 		<div class="box-esign">
 			<autoFullScreen
 				ref="esign"
@@ -13,12 +13,20 @@
 			</autoFullScreen>
 		</div>
 		<div class="button-sign" v-if="!fullStatus">
-			<button @click="handleReset">清空画板</button>
-			<button @click="handleGenerate">生成图片</button>
+			<el-button type="danger" size="small" @click="handleReset"
+				>清除</el-button
+			>
+			<el-button type="primary" size="small" @click="handleGenerate"
+				>保存</el-button
+			>
 		</div>
 		<div class="button-sign-full" v-if="fullStatus">
-			<button @click="handleReset">清空画板</button>
-			<button @click="handleGenerate">生成图片</button>
+			<el-button type="danger" size="small" @click="handleReset"
+				>清除</el-button
+			>
+			<el-button type="primary" size="small" @click="handleGenerate"
+				>保存</el-button
+			>
 		</div>
 	</div>
 </template>
@@ -59,8 +67,8 @@ export default {
 			let width = document.documentElement.clientWidth;
 			let height = document.documentElement.clientHeight;
 			if (width > height) {
-				this.width = width;
-				this.height = height;
+				this.width = width - 5;
+				this.height = height - 10;
 				this.fullStatus = true;
 			} else {
 				this.width = width;
@@ -81,7 +89,7 @@ export default {
 					this.resultImg = res;
 				})
 				.catch(err => {
-					alert(err); // 画布没有签字时会执行这里 'Not Signned'
+					this.$message.warning(err); // 画布没有签字时会执行这里
 				});
 		},
 	},
@@ -99,6 +107,7 @@ export default {
 }
 .box-esign {
 	border: 1px solid #000000;
+	box-sizing: border-box;
 }
 .button-sign {
 	text-align: center;
@@ -108,6 +117,9 @@ export default {
 	position: absolute;
 	bottom: 15px;
 	margin-left: 40%;
+}
+.sign {
+	padding: 5px;
 }
 body {
 	margin: 0;

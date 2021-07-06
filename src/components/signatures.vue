@@ -217,7 +217,7 @@ export default {
 		generate() {
 			const pm = new Promise((resolve, reject) => {
 				if (!this.hasDrew) {
-					reject(`Warning: Not Signned!`);
+					reject(`画板内容为空!`);
 					return;
 				}
 				var resImgData = this.canvasTxt.getImageData(
